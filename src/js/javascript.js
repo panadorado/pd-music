@@ -1,5 +1,25 @@
+const apiKeyList = [
+	"AIzaSyAKkNJJh2kbSgl31RObQuuEaS_6oRzT30Q", 
+	"AIzaSyAvPUsjjqCxjx9ZlIZh-EcdiBAFbJOeoO0", 
+	"AIzaSyB56E3cgBh0TMpNi5WQJT9AMFtChFIeEIo"
+];
 
-const apiKeyList = ["AIzaSyAKkNJJh2kbSgl31RObQuuEaS_6oRzT30Q", "AIzaSyAvPUsjjqCxjx9ZlIZh-EcdiBAFbJOeoO0", "AIzaSyB56E3cgBh0TMpNi5WQJT9AMFtChFIeEIo"];
+const playlistItem_key = [
+	"PLWZvGxtWFBkj05oI00vazomzXJXWQ2Q-i",
+	"PLWZvGxtWFBkjehOm4MkAuUpe-cfmstdPH",
+	"PLWZvGxtWFBkiJqnBJHNWU9_7HwKrH8soL",
+	"PLWZvGxtWFBkhUQmDkCX5fcuTmao_6MGgf"
+]
+
+const randomPlayList = Math.floor(Math.random() * playlistItem_key.length);
+
+const AlbumBackGround = [
+	"albumNguyenDinhVu.jpg",
+	"albumMrSiro.jpg",
+	"albumDongNhi.jpg",
+	"albumTheMen.jpg"
+]
+
 var apiKey = apiKeyList[0];
 var listVid = [];
 var listVideo;
@@ -10,6 +30,7 @@ var musicPlayer = document.getElementsByClassName('player')[0];
 var prev = document.getElementsByClassName('btn-prev')[0];
 var next = document.getElementsByClassName('btn-next')[0];
 var repeat = document.getElementsByClassName('btn-repeat')[0];
+var volume = document.getElementsByClassName('btn-volume')[0];
 var form = document.getElementsByClassName('form')[0];
 var newPlaylistId = document.getElementsByClassName('input')[0];
 var ok = document.getElementsByClassName('ok')[0];
@@ -21,6 +42,8 @@ var btn2 = document.getElementById('btn2');
 var icon = document.getElementById('icon');
 var icon2 = document.getElementById('icon2');
 var para = document.getElementById('title');
+var repeatIcon = document.getElementById('btn-repeat');
+var volumeIcon = document.getElementById('btn-volume');
 
 var progressBar = document.getElementById('progress-bar')
 var currentTime = document.getElementById('current-time');
@@ -28,6 +51,7 @@ var duration = document.getElementById('duration');
 
 var rand, time_update_interval;
 var repeatStatus = 0;
+var volumeStatus = 0;
 
 //Request Playlist Item
 const getPlayListItems = async playlistID => {
@@ -60,8 +84,9 @@ const getPlayListItems = async playlistID => {
 	return resultArr;
 };
 
+
 //Get Title video and videoId 
-getPlayListItems("PLWZvGxtWFBkjehOm4MkAuUpe-cfmstdPH")
+getPlayListItems(playlistItem_key[randomPlayList])
 .then(data => {
 	data.forEach(item => {
     	item.items.forEach(i => listVid.push({title: i.snippet.title, idVid: i.snippet.resourceId.videoId}));
@@ -81,7 +106,7 @@ getPlayListItems("PLWZvGxtWFBkjehOm4MkAuUpe-cfmstdPH")
 function changeAPIKey(newKey, err) {
 	if (err.response.data.error.errors[0].reason == "dailyLimitExceeded") {
 		apiKey = newKey;
-		getPlayListItems("PLWZvGxtWFBkjehOm4MkAuUpe-cfmstdPH")
+		getPlayListItems(playlistItem_key[randomPlayList])
 		.then(data => {
 			data.forEach(item => {
 	    	item.items.forEach(i => listVid.push({title: i.snippet.title, idVid: i.snippet.resourceId.videoId}));
@@ -101,6 +126,43 @@ function changeAPIKey(newKey, err) {
 	}
 }
 
+// Select playlist
+function ChoosePlay(num) {
+	var newId = playlistItem_key[num];
+	if (newId == "") {
+		return;
+	}
+
+	listVid = [];
+	btn.style.display = "none";
+	prev.style.display = "none";
+	next.style.display = "none";
+	btn2.style.display = "none";
+	repeat.style.display = "none";
+	volume.style.display = "none";
+	para.innerHTML = "Loading...";
+
+	getPlayListItems(newId)
+	.then(data => {
+		data.forEach(item => {
+	    	item.items.forEach(i => listVid.push({title: i.snippet.title, idVid: i.snippet.resourceId.videoId}));
+		});
+	    rand = Math.floor(Math.random()*listVid.length);
+	    checkPrivate();
+	    btn.style.display = "block";
+		prev.style.display = "block";
+		next.style.display = "block";
+		btn2.style.display = "block";
+		repeat.style.display = "block";
+		volume.style.display = "block";
+		para.innerHTML = listVid[rand].title;			    
+		player.loadVideoById({videoId:listVid[rand].idVid});
+		playButton(true);
+		musicPlayer.style.backgroundImage = `url("./icons/${AlbumBackGround[num]}")`;
+	}).catch(() => {
+		musicPlayer.style.backgroundImage = `background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);`;
+	});	
+}
 
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
@@ -121,6 +183,7 @@ function onPlayerReady(event) {
 	next.style.display = "block";
 	btn2.style.display = "block";
 	repeat.style.display = "block";
+	volume.style.display = "block";
 	form.style.display = "flex";
 	para.innerHTML = listVid[rand].title;
 	playButton(player.getPlayerState() !== 5);
@@ -145,6 +208,7 @@ btn.onclick = changeStatusPlay;
 prev.onclick = prevSong;
 next.onclick = nextSong;
 repeat.onclick = repeatVideo;
+volume.onclick = volumeVideo;
 ok.onclick = changePlaylistId;
 
 function playButton(play) {
@@ -234,19 +298,30 @@ function nextVideo() {
 //Repeat
 function repeatVideo () {
 	if (repeatStatus == 0) {
-        //repeat.style.opacity = "0.8";
-        //document.getElementById('btn-repeat').innerHTML = 'repeat';
-        document.getElementById('btn-repeat').src = './icons/repeat.svg'
-        document.getElementById('btn-repeat').title = 'Lặp lại: bật'
+        repeatIcon.src = './icons/repeat.svg'
+        repeatIcon.title = 'Lặp lại: bật'
 		repeatStatus = 1;
 	} else {
-        //repeat.style.opacity = "0.3";
-        //document.getElementById('btn-repeat').innerHTML = 'no repeat';
-        document.getElementById('btn-repeat').src = './icons/norepeat.svg'
-        document.getElementById('btn-repeat').title = 'Lặp lại: tắt'
+        repeatIcon.src = './icons/norepeat.svg'
+        repeatIcon.title = 'Lặp lại: tắt'
         repeatStatus = 0;
 	}
 }
+
+// Volume
+function volumeVideo() {
+	if (volumeStatus == 0) {
+		player.mute();
+        volumeIcon.src = './icons/mute.svg'
+		volumeIcon.title = 'Âm thanh : bật'
+		volumeStatus = 1;
+	} else {
+		player.unMute();
+        volumeIcon.src = './icons/unmute.svg'
+		volumeIcon.src.title = 'Âm thanh : tắt'
+		volumeStatus = 0;
+	}
+};
 
 //Check private or deleted video
 function checkPrivate() {
@@ -284,6 +359,7 @@ function changePlaylistId () {
 	next.style.display = "none";
 	btn2.style.display = "none";
 	repeat.style.display = "none";
+	volume.style.display = "none";
 	para.innerHTML = "Loading...";
 
 	getPlayListItems(newId)
@@ -298,8 +374,10 @@ function changePlaylistId () {
 		next.style.display = "block";
 		btn2.style.display = "block";
 		repeat.style.display = "block";
+		volume.style.display = "block";
 		para.innerHTML = listVid[rand].title;			    
 		player.loadVideoById({videoId:listVid[rand].idVid});
+		musicPlayer.style.backgroundImage = `background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);`;
 		playButton(true);
 	});	
 
