@@ -16,6 +16,7 @@
   "build": {
     "appId": "pd-music",
     "linux": {
+      "icon" : "scr/icons/music.ico",
       "target" : ["deb", "snap", "rpm"],
       "category" :"Utility"
     }

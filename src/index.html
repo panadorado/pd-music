@@ -37,7 +37,7 @@
 
           <p class="durationTime">
             <span class="TimeLeft" id="current-time"></span> <span class="TimeRight" id="duration"></span>
-            <input type="range" id="progress-bar" value="0">
+            <input class="progress-bar" type="range" id="progress-bar" value="0"/>
           </p>  
 
           <ul>
@@ -54,19 +54,64 @@
             </li>
 
             <li class="smail_icon">
+              <button class="btn-volume"><img id="btn-volume" src="./icons/unmute.svg" title="Âm thanh : tắt"></button>
+            </li>
+
+            <li class="smail_icon">
                 <button class="btn-repeat"><img id="btn-repeat" src="./icons/norepeat.svg" title="Lặp lại : tắt"></button>
             </li>
+
           </ul>
 
       </div>
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="./js/javascript.js"></script>
     </div>
-
-    <div class="row">
-
-    </div>
-    
   </section>
+
+  <section class="container">
+    <div class="row">
+      <div class="showAlbumMusic">
+        <div class="card" style="background-image: url('./icons/albumNguyenDinhVu.jpg');">
+          <p>Album Nguyễn Đình Vũ</p>
+          <button class="playNow" onclick="ChoosePlay(0)">
+            <img src="./icons/play.svg"/>
+          </button>
+        </div>
+      </div>
+      <div class="showAlbumMusic">
+        <div class="card" style="background-image: url(./icons/albumMrSiro.jpg);">
+          <p>Album Mr. Siro</p>
+          <button class="playNow" onclick="ChoosePlay(1)">
+            <img src="./icons/play.svg"/>
+          </button>
+        </div>
+      </div>
+      <div class="showAlbumMusic">
+        <div class="card" style="background-image: url('./icons/albumDongNhi.jpg');">
+          <p>Album Đông Nhi</p>
+          <button class="playNow" onclick="ChoosePlay(2)">
+            <img src="./icons/play.svg"/>
+          </button>
+        </div>
+      </div>
+      <div class="showAlbumMusic">
+        <div class="card" style="background-image: url('./icons/albumTheMen.jpg');">
+          <p>Album Đông Nhi</p>
+          <button class="playNow" onclick="ChoosePlay(3)">
+            <img src="./icons/play.svg"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="container">
+    <div class="row">
+      <div class="col displayListMusic" id="displayListMusic">123</div>
+      <div class="col"></div>
+    </div>
+  </section>
+
 </body>
 </html>
