@@ -9,8 +9,8 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    minwidth: 1024,
-    minheight: 600,
+    width: 1024,
+    height: 600,
     icon: __dirname + '/icons/music.png',
     autoHideMenuBar: true,
     webPreferences: {

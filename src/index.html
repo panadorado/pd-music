@@ -1,117 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./icons/music.png">
   <link rel="stylesheet" href="./css/index.css">
   <!-- ---------------------- BOOSTRAP CDN ---------------------- -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="">
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <!-- ----------------------------------------------------------- -->
-  <title>PD Music</title>
+  <script src="https://kit.fontawesome.com/01e0beb3d4.js" crossorigin="anonymous"></script>
+
+  <title>Nhạc Yêu thích Của Tôi</title>
 </head>
-<body>
-
-  <div class="switch">
-    <button id="btn2"><img src="./icons/menu.svg" id="icon2"></button>	
-  </div>
-
-  <div class="form">
-    <input class="input" type="text" onfocus="this.value= ''" placeholder="New Playlist ID">
-    <button class="ok"><img src="./icons/check.svg"></button>
-  </div>
-
-  <section class="container">
-
-    <div class="row">
-      
-      <div id="player"></div>
-      <div class="player">
-        <div class="layer">
-          
-          <div class="title" id="title"></div>
-
-          <p class="durationTime">
-            <span class="TimeLeft" id="current-time"></span> <span class="TimeRight" id="duration"></span>
-            <input class="progress-bar" type="range" id="progress-bar" value="0"/>
-          </p>  
-
-          <ul>
-            <li>
-              <button class="btn-prev"><img src="./icons/prev.svg"></button>
-            </li>
-    
-            <li>
-              <button id="btn"><img src="./icons/play.svg" id="icon"></button>
-            </li>
-        
-            <li>
-              <button class="btn-next"><img src="./icons/next.svg"></button>
-            </li>
-
-            <li class="smail_icon">
-              <button class="btn-volume"><img id="btn-volume" src="./icons/unmute.svg" title="Âm thanh : tắt"></button>
-            </li>
-
-            <li class="smail_icon">
-                <button class="btn-repeat"><img id="btn-repeat" src="./icons/norepeat.svg" title="Lặp lại : tắt"></button>
-            </li>
-
-          </ul>
-
-      </div>
-      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-      <script src="./js/javascript.js"></script>
+<body class="body-bg">
+  <nav class="nav-bar">
+    <div class="switch">
+      <button id="btn2"><img src="./icons/menu.svg" id="icon2"></button>	
     </div>
-  </section>
+  
+    <div class="form">
+      <input class="input" type="text" onfocus="this.value= ''" placeholder="New Playlist ID">
+      <button class="ok"><img src="./icons/check.svg"></button>
+    </div>
+    <ul>
+      <li><a href="https://congnghevacuocsong.tk" target="_blank"><i class="fab fa-blogger"></i> Blog Của Tôi</a></li>
+    </ul>
+  </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="showAlbumMusic">
-        <div class="card" style="background-image: url('./icons/albumNguyenDinhVu.jpg');">
+  <div id="player"></div>
+  <div class="player">
+    <div class="layer">
+      <section class="container">
+        <div class="row">
+        
+          <div class="col">
+            <div class="row controls">
+              <button class="btn-prev"><img src="./icons/prev.svg"></button>
+              <button id="btn"><img src="./icons/play.svg" id="icon"></button>
+              <button class="btn-next"><img src="./icons/next.svg"></button>
+            </div>
+          </div>
+    
+          <div class="col-6 centerItems text-nowrap">
+            <small>
+              <small class="title" id="title"></small>
+              <small class="durationTime">
+                <label id="current-time">0:00</label> / <label id="duration">0:00</label>
+              </small>
+              <input class="progress-bar" type="range" id="progress-bar" value="0"/>
+            </small>
+          </div>
+    
+          <div class="col">
+            <div class="row controls">
+              <button class="btn-volume"><img id="btn-volume" src="./icons/unmute.svg" title="Âm thanh : tắt"></button>
+              <button class="btn-repeat"><img id="btn-repeat" src="./icons/norepeat.svg" title="Lặp lại : tắt"></button>
+            </div>
+          </div>
+          
+        </div>
+      
+      </section>
+    </div>
+  </div>
+
+  <section class="container zIndexList">
+    <div class="card-columns">
+      <div class="card">
+        <div class="card-body" style="background-image: url(./icons/albumNguyenDinhVu.jpg);">
           <p>Album Nguyễn Đình Vũ</p>
           <button class="playNow" onclick="ChoosePlay(0)">
             <img src="./icons/play.svg"/>
           </button>
         </div>
       </div>
-      <div class="showAlbumMusic">
-        <div class="card" style="background-image: url(./icons/albumMrSiro.jpg);">
-          <p>Album Mr. Siro</p>
-          <button class="playNow" onclick="ChoosePlay(1)">
+      <div class="card">
+          <div class="card-body" style="background-image: url(./icons/albumMrSiro.jpg);">
+            <p>Album Mr. Siro</p>
+            <button class="playNow" onclick="ChoosePlay(1)">
+              <img src="./icons/play.svg"/>
+            </button>
+          </div>
+      </div>
+      <div class="card">
+          <div class="card-body" style="background-image: url(./icons/albumDongNhi.jpg);">
+            <p>Album Đông Nhi</p>
+            <button class="playNow" onclick="ChoosePlay(2)">
+              <img src="./icons/play.svg"/>
+            </button>
+          </div>
+      </div>
+      <div class="card">
+          <div class="card-body" style="background-image: url(./icons/albumTheMen.jpg);">
+            <p>Album The Men</p>
+            <button class="playNow" onclick="ChoosePlay(3)">
+              <img src="./icons/play.svg"/>
+            </button>
+          </div>
+      </div>
+      <div class="card">
+          <div class="card-body" style="background-image: url(./icons/albumDuyManh.jpg);">
+            <p>Album Duy Mạnh</p>
+            <button class="playNow" onclick="ChoosePlay(4)">
+              <img src="./icons/play.svg"/>
+            </button>
+          </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="background-image: url(./icons/albumMinhVuong4u.jpg);">
+          <p>Album Minh Vương 4u</p>
+          <button class="playNow" onclick="ChoosePlay(5)">
             <img src="./icons/play.svg"/>
           </button>
         </div>
-      </div>
-      <div class="showAlbumMusic">
-        <div class="card" style="background-image: url('./icons/albumDongNhi.jpg');">
-          <p>Album Đông Nhi</p>
-          <button class="playNow" onclick="ChoosePlay(2)">
-            <img src="./icons/play.svg"/>
-          </button>
-        </div>
-      </div>
-      <div class="showAlbumMusic">
-        <div class="card" style="background-image: url('./icons/albumTheMen.jpg');">
-          <p>Album Đông Nhi</p>
-          <button class="playNow" onclick="ChoosePlay(3)">
-            <img src="./icons/play.svg"/>
-          </button>
-        </div>
-      </div>
+    </div>
     </div>
   </section>
-  
-  <section class="container">
-    <div class="row">
-      <div class="col displayListMusic" id="displayListMusic">123</div>
-      <div class="col"></div>
-    </div>
-  </section>
-
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./js/javascript.js"></script>
 </body>
 </html>
