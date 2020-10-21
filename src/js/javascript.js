@@ -8,7 +8,9 @@ const playlistItem_key = [
 	"PLWZvGxtWFBkj05oI00vazomzXJXWQ2Q-i",
 	"PLWZvGxtWFBkjehOm4MkAuUpe-cfmstdPH",
 	"PLWZvGxtWFBkiJqnBJHNWU9_7HwKrH8soL",
-	"PLWZvGxtWFBkhUQmDkCX5fcuTmao_6MGgf"
+	"PLWZvGxtWFBkhUQmDkCX5fcuTmao_6MGgf",
+	"PLWZvGxtWFBkjJB33xSfr_-dR36ky3Nieq",
+	"PLitXtZ6mUvlMickjHJtoEM1vN6URFVGYT"
 ]
 
 const randomPlayList = Math.floor(Math.random() * playlistItem_key.length);
@@ -17,7 +19,9 @@ const AlbumBackGround = [
 	"albumNguyenDinhVu.jpg",
 	"albumMrSiro.jpg",
 	"albumDongNhi.jpg",
-	"albumTheMen.jpg"
+	"albumTheMen.jpg",
+	"albumDuyManh.jpg",
+	"albumMinhVuong4u.jpg"
 ]
 
 var apiKey = apiKeyList[0];
@@ -25,7 +29,8 @@ var listVid = [];
 var listVideo;
 var player;
 
-var bg = document.getElementsByClassName('bg')[0];
+var Bodybg = document.getElementsByClassName('body-bg')[0];
+var DisplayPlayer = document.getElementsByClassName('player')[0];
 var musicPlayer = document.getElementsByClassName('player')[0];
 var prev = document.getElementsByClassName('btn-prev')[0];
 var next = document.getElementsByClassName('btn-next')[0];
@@ -45,7 +50,7 @@ var para = document.getElementById('title');
 var repeatIcon = document.getElementById('btn-repeat');
 var volumeIcon = document.getElementById('btn-volume');
 
-var progressBar = document.getElementById('progress-bar')
+var progressBar = document.querySelector('#progress-bar');
 var currentTime = document.getElementById('current-time');
 var duration = document.getElementById('duration');
 
@@ -97,6 +102,8 @@ getPlayListItems(playlistItem_key[randomPlayList])
     tag.src = "https://www.youtube.com/iframe_api";
 	var firstScriptTag = document.getElementsByTagName('script')[0];
 	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	Bodybg.style.backgroundImage = `url("./icons/${AlbumBackGround[randomPlayList]}")`;
+	musicPlayer.style.backgroundImage = `url("./icons/${AlbumBackGround[randomPlayList]}")`;
 })
 .catch(err => {
 	changeAPIKey(apiKeyList[1], err);
@@ -116,6 +123,8 @@ function changeAPIKey(newKey, err) {
 		    tag.src = "https://www.youtube.com/iframe_api";
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			Bodybg.style.backgroundImage = `url("./icons/${AlbumBackGround[randomPlayList]}")`;
+			musicPlayer.style.backgroundImage = `url("./icons/${AlbumBackGround[randomPlayList]}")`;
 		});
 		})
 		.catch(err => {
@@ -158,7 +167,9 @@ function ChoosePlay(num) {
 		para.innerHTML = listVid[rand].title;			    
 		player.loadVideoById({videoId:listVid[rand].idVid});
 		playButton(true);
+		Bodybg.style.backgroundImage = `url("./icons/${AlbumBackGround[num]}")`;
 		musicPlayer.style.backgroundImage = `url("./icons/${AlbumBackGround[num]}")`;
+		DisplayPlayer.style.display = "block";
 	}).catch(() => {
 		musicPlayer.style.backgroundImage = `background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);`;
 	});	
@@ -378,6 +389,7 @@ function changePlaylistId () {
 		para.innerHTML = listVid[rand].title;			    
 		player.loadVideoById({videoId:listVid[rand].idVid});
 		musicPlayer.style.backgroundImage = `background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);`;
+		DisplayPlayer.style.display = "block";
 		playButton(true);
 	});	
 
@@ -392,15 +404,14 @@ setInterval(function() {
 	}
 }, 3000);
 
+$("#progress-bar").on('mouseup touchend', e => {
 
-this.progressBar.on('mouseup touchend', function (e) {
+	// Calculate the new time for the video.
+	// new time in seconds = total duration in seconds * ( value of range input / 100 )
+	var newTime = this.player.getDuration() * (e.target.value / 100);
 
-    // Calculate the new time for the video.
-    // new time in seconds = total duration in seconds * ( value of range input / 100 )
-    var newTime = this.player.getDuration() * (e.target.value / 100);
-
-    // Skip video to new time.
-    player.seekTo(newTime);
+	// Skip video to new time.
+	player.seekTo(newTime);
 
 });
 
