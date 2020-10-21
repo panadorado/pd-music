@@ -25,5 +25,6 @@
 
 # Update 21-10-2020
 **+ Cập nhật giao diện mới cho trang chơi nhạc**</br>
+**+ Cập nhật narbar Menu**</br>
 **+ Sửa lỗi không thể kéo tua thanh tiến trình**</br>
 ![image3](https://raw.githubusercontent.com/panadorado/pd-music/panadora/src/icons/Screenshot%20(18).png)
